@@ -42,8 +42,8 @@ __global__ void blurGrayscaleKernel(GrayscalePixel *imIn, GrayscalePixel *imOut,
                 int inCol = Col + blurCol, inRow = Row + blurRow;
                 if ((inCol >= 0) && (inCol < width) && (inRow >= 0) && (inRow < height)){
                     pixelVal += imIn[inRow * width + inCol].V;
+                    pixelCount++;
                 }
-                pixelCount++;
             }
         }
         imOut[Row*width + Col].V = (unsigned char) ((float) pixelVal / pixelCount);
@@ -77,7 +77,7 @@ int main()
     cudaMemcpy(grayImage, cudaGrayscaleImage, sizeof(GrayscalePixel) * width * height, cudaMemcpyDeviceToHost);
 
     // check the result
-    int expected = image[287].R * 0.21f + image[287].G * 0.71f + image[287].B * 0.07f;
+    int expected = image[287].R * 0.21f + image[287].G * 0.72f + image[287].B * 0.07f;
     int result = grayImage[287].V;
     printf("expected: %d, got: %d\n", expected, result);
 
