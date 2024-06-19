@@ -1,4 +1,4 @@
-// #include <cuda.h>
+#include <cuda.h>
 #include <stdio.h>
 #include <malloc.h>
 
